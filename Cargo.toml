@@ -1,0 +1,6 @@
+[package]
+name = "os_log"
+version = "0.1.0"
+authors = ["Søren Mortensen <soren@sorenmortensen.com>"]
+
+[dependencies]
