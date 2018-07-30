@@ -6,6 +6,9 @@
 //  Copyright © 2018 Søren Mortensen. All rights reserved.
 //
 
-mod os_log;
+#![allow(non_upper_case_globals)]
+#![allow(non_camel_case_types)]
+#![allow(non_snake_case)]
+#![allow(safe_packed_borrows)]
 
-pub use os_log::*;
+include!(concat!(env!("OUT_DIR"), "/os_log.rs"));
