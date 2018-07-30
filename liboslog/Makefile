@@ -3,17 +3,17 @@ CFLAGS=-I$(IDIR)
 
 IDIR=include
 
-_DEPS = os_log_wrapper.h
+_DEPS = oslog.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
 ODIR=obj
 
-_OBJ = os_log_wrapper.o
+_OBJ = oslog.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 SDIR=src
 
-_SRC = os_log_wrapper.c
+_SRC = oslog.c
 SRC = $(patsubst %,$(SDIR)/%,$(_SRC))
 
 OUTDIR=out
@@ -22,7 +22,7 @@ $(ODIR)/%.o: $(SDIR)/%.c $(DEPS)
 	@echo "[Compile]" $<
 	@$(CC) -c -o $@ $< $(CFLAGS)
 
-$(OUTDIR)/liboslogwrapper.a: $(OBJ)
+$(OUTDIR)/liboslog.a: $(OBJ)
 	@echo "[Link (Static)]" $<
 	@mkdir -p $(OUTDIR)
 	@ar rcs $@ $^
@@ -33,4 +33,4 @@ clean:
 	rm -f $(ODIR)/*.o *~ $(INCDIR)/*~
 	rm -rf out
 
-all: liboslogwrapper.a
+all: liboslog.a

@@ -13,19 +13,20 @@ use std::path::PathBuf;
 use std::process::Command;
 
 fn main() {
-    let wrapper_dir = concat!(env!("CARGO_MANIFEST_DIR"), "/../os_log_wrapper");
+    let liboslog_dir = concat!(env!("CARGO_MANIFEST_DIR"), "/../liboslog");
 
     Command::new("make")
-        .current_dir(PathBuf::from(wrapper_dir))
-        .status().unwrap();
-    
-    println!("cargo:rustc-link-search=native=../os_log_wrapper/out/");
-    println!("cargo:rustc-link-lib=static=oslogwrapper");
-    
+        .current_dir(PathBuf::from(liboslog_dir))
+        .status()
+        .unwrap();
+
+    println!("cargo:rustc-link-search=native={}/out/", liboslog_dir);
+    println!("cargo:rustc-link-lib=static=oslog");
+
     let bindings = bindgen::Builder::default()
         // The input header we would like to generate
         // bindings for.
-        .header("include/os_log.h")
+        .header("include/oslog-sys.h")
         // Finish the builder and generate the bindings.
         .generate()
         // Unwrap the Result and panic on failure.

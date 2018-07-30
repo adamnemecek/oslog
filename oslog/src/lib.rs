@@ -1,20 +1,22 @@
 //
 //  lib.rs
-//  os_log
+//  oslog
 //
-//  Created by Søren Mortensen on 28/07/2018.
+//  Created by Søren Mortensen on 29/07/2018.
 //  Copyright © 2018 Søren Mortensen. All rights reserved.
 //
 
 extern crate log;
+extern crate oslog_sys;
 
-pub mod os_log;
+use log::{Level, Log, Metadata, Record, SetLoggerError};
 
-use log::{Record, Level, Log, Metadata, SetLoggerError};
+use oslog_sys::_os_log_fault;
+use oslog_sys::{
+    OS_LOG_TYPE_DEBUG, OS_LOG_TYPE_DEFAULT, OS_LOG_TYPE_ERROR, OS_LOG_TYPE_FAULT, OS_LOG_TYPE_INFO,
+};
 
 use std::ffi::CString;
-
-use os_log::*;
 
 struct OsLog {
     level: Level,
@@ -38,7 +40,9 @@ impl Log for OsLog {
         if self.enabled(record.metadata()) {
             let string = format!("{}", record.args());
             let c_string = CString::new(string).unwrap();
-            unsafe { _os_log_fault(c_string.as_ptr()); }
+            unsafe {
+                _os_log_fault(c_string.as_ptr());
+            }
         }
     }
 
@@ -48,16 +52,4 @@ impl Log for OsLog {
 pub fn init_with_level(level: Level) -> Result<(), SetLoggerError> {
     log::set_boxed_logger(Box::new(OsLog { level }))
         .map(|()| log::set_max_level(level.to_level_filter()))
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_thing() {
-        let string = format!("{}", "This is a test log from os_log");
-        let c_string = CString::new(string).unwrap();
-        unsafe { _os_log_fault(c_string.as_ptr()); }
-    }
 }

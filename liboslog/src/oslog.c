@@ -1,12 +1,12 @@
 //
-//  os_log_wrapper.c
-//  os_log_wrapper
+//  oslog.c
+//  oslog
 //
 //  Created by Søren Mortensen on 29/07/2018.
 //  Copyright © 2018 Søren Mortensen. All rights reserved.
 //
 
-#include "os_log_wrapper.h"
+#include "oslog.h"
 
 void _os_log(const char *str) {
     os_log(OS_LOG_DEFAULT, "%{public}s", str);
