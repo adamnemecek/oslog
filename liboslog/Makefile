@@ -1,36 +1,39 @@
 CC=clang
-CFLAGS=-I$(IDIR)
+CFLAGS=-I$(INC_DIR)
 
-IDIR=include
+INC_DIR=include
 
 _DEPS = oslog.h
-DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
+DEPS = $(patsubst %,$(INC_DIR)/%,$(_DEPS))
 
-ODIR=obj
+OBJ_DIR=obj
 
 _OBJ = oslog.o
-OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
+OBJ = $(patsubst %,$(OBJ_DIR)/%,$(_OBJ))
 
-SDIR=src
+SRC_DIR=src
 
 _SRC = oslog.c
-SRC = $(patsubst %,$(SDIR)/%,$(_SRC))
+SRC = $(patsubst %,$(SRC_DIR)/%,$(_SRC))
 
-OUTDIR=out
+OUT_DIR=out
 
-$(ODIR)/%.o: $(SDIR)/%.c $(DEPS)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(DEPS)
 	@echo "[Compile]" $<
+	@mkdir -p $(OBJ_DIR)
 	@$(CC) -c -o $@ $< $(CFLAGS)
 
-$(OUTDIR)/liboslog.a: $(OBJ)
+$(OUT_DIR)/liboslog.a: $(OBJ)
 	@echo "[Link (Static)]" $<
-	@mkdir -p $(OUTDIR)
+	@mkdir -p $(OUT_DIR)
 	@ar rcs $@ $^
 
-.PHONY: clean
+$(OUT_DIR):
+	@mkdir -p $(OUT_DIR)
+
+.PHONY: clean $(OBJ_DIR) $(OUT_DIR)
 
 clean:
-	rm -f $(ODIR)/*.o *~ $(INCDIR)/*~
-	rm -rf out
+	rm -f $(OBJ_DIR)/*.o $(OUT_DIR)/*.a
 
 all: liboslog.a

@@ -6,4 +6,4 @@
 //  Copyright © 2018 Søren Mortensen. All rights reserved.
 //
 
-#include "../../liboslog/include/oslog.h"
+#include "../liboslog/include/oslog.h"
