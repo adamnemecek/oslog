@@ -10,7 +10,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-oslog = { git = "https://github.com/econobox/oslog" }
+oslog = { git = "https://git.sr.ht/~nerosnm/oslog" }
 ```
 
 and this to your crate root:
