@@ -4,10 +4,10 @@ packages:
 sources:
     - git@git.sr.ht:~nerosnm/oslog
 secrets:
-    - bdbeeabb-05e8-4b13-b01c-9e8e266e98e3
+    - 2df81a73-108c-4cb6-b385-9b3cc8b61bc4
 tasks:
     - mirror: |
         cd oslog
         ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-        git remote add github git@github.com:econobox/oslog.git
+        git remote add github git@github.com:nerosnm/oslog.git
         git push github --mirror
