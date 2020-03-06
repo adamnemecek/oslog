@@ -1,0 +1,13 @@
+image: archlinux
+packages:
+    - git
+sources:
+    - git@git.sr.ht:~nerosnm/oslog
+secrets:
+    - bdbeeabb-05e8-4b13-b01c-9e8e266e98e3
+tasks:
+    - mirror: |
+        cd oslog
+        ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+        git remote add github git@github.com:econobox/oslog.git
+        git push github --mirror
