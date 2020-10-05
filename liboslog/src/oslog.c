@@ -29,6 +29,11 @@ void _os_log_fault(const char *str) {
 }
 
 
+void oslog_signpost_event_emit(os_log_t log, os_signpost_id_t spid) {
+    // os_signpost_event_emit(log)
+}
+
+
 // OS_ENUM(os_signpost_type, uint8_t,
 //     OS_SIGNPOST_EVENT           = 0x00,
 //     OS_SIGNPOST_INTERVAL_BEGIN  = 0x01,
@@ -43,3 +48,5 @@ void _os_log_fault(const char *str) {
 
 // func os_signpost(_ type: OSSignpostType, dso: UnsafeRawPointer = #dsohandle, log: OSLog, name: StaticString, signpostID: OSSignpostID = .exclusive)
 // #define os_signpost_interval_end(log, interval_id, name, ...)
+
+

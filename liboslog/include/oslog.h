@@ -18,4 +18,6 @@ void _os_log_debug(const char *str);
 void _os_log_error(const char *str);
 void _os_log_fault(const char *str);
 
+void oslog_signpost_event_emit(os_log_t log, os_signpost_id_t spid);
+
 #endif /* oslog_h */

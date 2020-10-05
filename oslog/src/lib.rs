@@ -12,24 +12,27 @@ extern crate oslog_sys;
 use log::{Level, Log, Metadata, Record, SetLoggerError};
 
 use oslog_sys::_os_log_fault;
+// use oslog_sys::{
+//     OS_LOG_TYPE_DEBUG, OS_LOG_TYPE_DEFAULT, OS_LOG_TYPE_ERROR, OS_LOG_TYPE_FAULT, OS_LOG_TYPE_INFO,
+// };
 use oslog_sys::{
-    OS_TRACE_TYPE_DEBUG, OS_TRACE_TYPE_ERROR, OS_TRACE_TYPE_FAULT, OS_TRACE_TYPE_INFO,
-    OS_TRACE_TYPE_RELEASE,
+    os_log_type_t_OS_LOG_TYPE_DEBUG, os_log_type_t_OS_LOG_TYPE_DEFAULT,
+    os_log_type_t_OS_LOG_TYPE_ERROR, os_log_type_t_OS_LOG_TYPE_FAULT,
+    os_log_type_t_OS_LOG_TYPE_INFO,
 };
-
 use std::ffi::CString;
 
 // struct OsLog {
 //     level: Level,
 // }
 
-#[repr(u32)]
+#[repr(u8)]
 enum OsLogType {
-    Release = OS_TRACE_TYPE_RELEASE,
-    Info = OS_TRACE_TYPE_INFO,
-    Debug = OS_TRACE_TYPE_DEBUG,
-    Error = OS_TRACE_TYPE_ERROR,
-    Fault = OS_TRACE_TYPE_FAULT,
+    Default = os_log_type_t_OS_LOG_TYPE_DEFAULT,
+    Info = os_log_type_t_OS_LOG_TYPE_INFO,
+    Debug = os_log_type_t_OS_LOG_TYPE_DEBUG,
+    Error = os_log_type_t_OS_LOG_TYPE_ERROR,
+    Fault = os_log_type_t_OS_LOG_TYPE_FAULT,
 }
 
 // impl Log for OsLog {
@@ -55,13 +58,13 @@ enum OsLogType {
 //         .map(|()| log::set_max_level(level.to_level_filter()))
 // }
 
-use oslog_sys::os_log_t;
+// use oslog_sys::os_log_t;
 
-pub struct OsLog {
-    inner: os_log_t,
+pub struct OSLog {
+    inner: oslog_sys::os_log_t,
 }
 
-impl OsLog {
+impl OSLog {
     pub fn new(subsystem: &str, category: &str) -> Self {
         let c_subsystem = CString::new(subsystem).unwrap();
         let c_category = CString::new(category).unwrap();
@@ -75,12 +78,19 @@ pub struct OSSignpostID {
 }
 
 impl OSSignpostID {
-    pub fn new(log: OsLog) -> Self {
+    pub fn new(log: OSLog) -> Self {
         let inner = unsafe { oslog_sys::os_signpost_id_generate(log.inner) };
         Self { inner }
     }
 }
 
+// #define os_signpost_event_emit(log, event_id, name, ...)
+pub fn os_signpost_event_emit(log: OSLog, spid: OSSignpostID) {
+    unsafe {
+        oslog_sys::oslog_signpost_event_emit(log.inner, spid.inner);
+    }
+}
+
 fn test() {
-    let log = OsLog::new("fdsa", "czx");
+    let log = OSLog::new("fdsa", "czx");
 }
