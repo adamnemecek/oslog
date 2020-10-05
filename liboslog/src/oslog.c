@@ -30,7 +30,8 @@ void _os_log_fault(const char *str) {
 
 
 void oslog_signpost_event_emit(os_log_t log, os_signpost_id_t spid, const char *str) {
-    os_signpost_event_emit(log, spid, str);
+    printf("called here\n");
+    os_signpost_event_emit(log, spid, "called");
 }
 
 

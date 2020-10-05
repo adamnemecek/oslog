@@ -94,7 +94,7 @@ impl OSSignpostID {
 }
 
 // #define os_signpost_event_emit(log, event_id, name, ...)
-#[inline]
+//#[inline]
 pub fn os_signpost_event_emit(log: &OSLog, spid: OSSignpostID, msg: &CStr) {
     unsafe {
         oslog_sys::oslog_signpost_event_emit(log.inner, spid.inner, msg.as_ptr());
