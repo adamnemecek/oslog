@@ -13,7 +13,7 @@ use log::{Level, Log, Metadata, Record, SetLoggerError};
 
 use oslog_sys::_os_log_fault;
 use oslog_sys::{
-    OS_LOG_TYPE_DEBUG, OS_LOG_TYPE_DEFAULT, OS_LOG_TYPE_ERROR, OS_LOG_TYPE_FAULT, OS_LOG_TYPE_INFO,
+    OS_TRACE_TYPE_DEBUG, OS_TRACE_TYPE_RELEASE, OS_TRACE_TYPE_ERROR, OS_TRACE_TYPE_FAULT, OS_TRACE_TYPE_INFO,
 };
 
 use std::ffi::CString;
@@ -24,11 +24,11 @@ struct OsLog {
 
 #[repr(u32)]
 enum OsLogType {
-    Default = OS_LOG_TYPE_DEFAULT,
-    Info = OS_LOG_TYPE_INFO,
-    Debug = OS_LOG_TYPE_DEBUG,
-    Error = OS_LOG_TYPE_ERROR,
-    Fault = OS_LOG_TYPE_FAULT,
+    Release = OS_TRACE_TYPE_RELEASE,
+    Info = OS_TRACE_TYPE_INFO,
+    Debug = OS_TRACE_TYPE_DEBUG,
+    Error = OS_TRACE_TYPE_ERROR,
+    Fault = OS_TRACE_TYPE_FAULT,
 }
 
 impl Log for OsLog {
