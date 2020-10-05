@@ -10,6 +10,7 @@
 #define oslog_h
 
 #include <os/log.h>
+#include <os/signpost.h>
 
 void _os_log(const char *str);
 void _os_log_info(const char *str);
