@@ -60,6 +60,7 @@ enum OsLogType {
 
 // use oslog_sys::os_log_t;
 
+
 pub struct OSLog {
     inner: oslog_sys::os_log_t,
 }
@@ -73,12 +74,20 @@ impl OSLog {
     }
 }
 
+
+// impl std::fmt::Debug for OSLog {
+//     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+//         f.write_str(&format!("OSLog({})", self.inner));
+
+//     }
+// }
+
 pub struct OSSignpostID {
     inner: oslog_sys::os_signpost_id_t,
 }
 
 impl OSSignpostID {
-    pub fn new(log: OSLog) -> Self {
+    pub fn new(log: &OSLog) -> Self {
         let inner = unsafe { oslog_sys::os_signpost_id_generate(log.inner) };
         Self { inner }
     }
@@ -86,7 +95,7 @@ impl OSSignpostID {
 
 // #define os_signpost_event_emit(log, event_id, name, ...)
 #[inline]
-pub fn os_signpost_event_emit(log: OSLog, spid: OSSignpostID, msg: &CStr) {
+pub fn os_signpost_event_emit(log: &OSLog, spid: OSSignpostID, msg: &CStr) {
     unsafe {
         oslog_sys::oslog_signpost_event_emit(log.inner, spid.inner, msg.as_ptr());
     }
