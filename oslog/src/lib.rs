@@ -13,7 +13,8 @@ use log::{Level, Log, Metadata, Record, SetLoggerError};
 
 use oslog_sys::_os_log_fault;
 use oslog_sys::{
-    OS_TRACE_TYPE_DEBUG, OS_TRACE_TYPE_RELEASE, OS_TRACE_TYPE_ERROR, OS_TRACE_TYPE_FAULT, OS_TRACE_TYPE_INFO,
+    OS_TRACE_TYPE_DEBUG, OS_TRACE_TYPE_ERROR, OS_TRACE_TYPE_FAULT, OS_TRACE_TYPE_INFO,
+    OS_TRACE_TYPE_RELEASE,
 };
 
 use std::ffi::CString;
@@ -52,4 +53,19 @@ impl Log for OsLog {
 pub fn init_with_level(level: Level) -> Result<(), SetLoggerError> {
     log::set_boxed_logger(Box::new(OsLog { level }))
         .map(|()| log::set_max_level(level.to_level_filter()))
+}
+
+use oslog_sys::os_log_t;
+
+pub struct OsLog1 {
+    inner: os_log_t,
+}
+
+impl OsLog1 {
+    pub fn new(subsystem: &str, category: &str) -> Self {
+        let c_subsystem = CString::new(subsystem).unwrap();
+        let c_category = CString::new(category).unwrap();
+        let inner = unsafe { oslog_sys::os_log_create(c_subsystem.as_ptr(), c_category.as_ptr()) };
+        Self { inner }
+    }
 }
