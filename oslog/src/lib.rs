@@ -20,7 +20,7 @@ use oslog_sys::{
     os_log_type_t_OS_LOG_TYPE_ERROR, os_log_type_t_OS_LOG_TYPE_FAULT,
     os_log_type_t_OS_LOG_TYPE_INFO,
 };
-use std::ffi::CString;
+use std::ffi::{CString, CStr};
 
 // struct OsLog {
 //     level: Level,
@@ -85,9 +85,10 @@ impl OSSignpostID {
 }
 
 // #define os_signpost_event_emit(log, event_id, name, ...)
-pub fn os_signpost_event_emit(log: OSLog, spid: OSSignpostID) {
+#[inline]
+pub fn os_signpost_event_emit(log: OSLog, spid: OSSignpostID, msg: &CStr) {
     unsafe {
-        oslog_sys::oslog_signpost_event_emit(log.inner, spid.inner);
+        oslog_sys::oslog_signpost_event_emit(log.inner, spid.inner, msg.as_ptr());
     }
 }
 

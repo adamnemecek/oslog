@@ -1,0 +1,11 @@
+[package]
+name = "simple"
+version = "0.1.0"
+authors = ["Søren Mortensen <soren@sorenmortensen.com>"]
+
+[dependencies]
+oslog = { path = "../../oslog" }
+
+[[example]]
+name = "simple"
+path = "src/main.rs"

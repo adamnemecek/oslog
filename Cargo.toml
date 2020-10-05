@@ -2,5 +2,6 @@
 
 members = [
     "oslog-sys",
-    "oslog"
+    "oslog",
+    "examples/simple",
 ]
