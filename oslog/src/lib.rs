@@ -11,7 +11,7 @@ extern crate oslog_sys;
 
 //use log::{Level, Log, Metadata, Record, SetLoggerError};
 
-use oslog_sys::_os_log_fault;
+// use oslog_sys::_os_log_fault;
 // use oslog_sys::{
 //     OS_LOG_TYPE_DEBUG, OS_LOG_TYPE_DEFAULT, OS_LOG_TYPE_ERROR, OS_LOG_TYPE_FAULT, OS_LOG_TYPE_INFO,
 // };
@@ -60,6 +60,9 @@ enum OsLogType {
 
 // use oslog_sys::os_log_t;
 
+pub static POINTS_OF_INTEREST: &'static str = "PointsOfInterest";
+pub static DYNAMIC_TRACING: &'static str = "DynamicTracing";
+pub static DYNAMIC_STACK_TRACING: &'static str = "DynamicStackTracing";
 
 pub struct OSLog {
     inner: oslog_sys::os_log_t,
@@ -94,10 +97,24 @@ impl OSSignpostID {
 }
 
 // #define os_signpost_event_emit(log, event_id, name, ...)
-//#[inline]
+#[inline]
 pub fn os_signpost_event_emit(log: &OSLog, spid: OSSignpostID, msg: &CStr) {
     unsafe {
-        oslog_sys::oslog_signpost_event_emit(log.inner, spid.inner, msg.as_ptr());
+        oslog_sys::oslog_sys_signpost_event_emit(log.inner, spid.inner, msg.as_ptr());
+    }
+}
+
+#[inline]
+pub fn os_signpost_interval_begin(log: &OSLog, spid: OSSignpostID, msg: &CStr) {
+    unsafe {
+        oslog_sys::oslog_sys_signpost_interval_begin(log.inner, spid.inner, msg.as_ptr());
+    }
+}
+
+#[inline]
+pub fn os_signpost_interval_end(log: &OSLog, spid: OSSignpostID, msg: &CStr) {
+    unsafe {
+        oslog_sys::oslog_sys_signpost_interval_end(log.inner, spid.inner, msg.as_ptr());
     }
 }
 
