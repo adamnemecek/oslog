@@ -112,28 +112,28 @@ pub struct OSPoiLog {
 }
 
 impl OSPoiLog {
-    pub fn new() -> Self {
-        let log = OSLog::new("com.ngrid.app", POINTS_OF_INTEREST);
+    pub fn new(subsystem: &str) -> Self {
+        let log = OSLog::new(subsystem, POINTS_OF_INTEREST);
         Self { log }
     }
 
+    #[inline]
     pub fn spid(&self) -> OSSignpostID {
         OSSignpostID::new(&self.log)
     }
 
+    #[inline]
     pub fn emit(&self, spid: OSSignpostID, msg: &CStr) {
         os_signpost_event_emit(&self.log, spid, msg)
     }
 
+    #[inline]
     pub fn start(&self, spid: OSSignpostID, msg: &CStr) {
         os_signpost_interval_begin(&self.log, spid, msg)
     }
 
+    #[inline]
     pub fn end(&self, spid: OSSignpostID, msg: &CStr) {
         os_signpost_interval_end(&self.log, spid, msg)
     }
-}
-
-fn test() {
-    let log = OSLog::new("fdsa", "czx");
 }
