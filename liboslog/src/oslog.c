@@ -30,8 +30,10 @@ void _os_log_fault(const char *str) {
 
 
 void oslog_signpost_event_emit(os_log_t log, os_signpost_id_t spid, const char *str) {
-    printf("called here\n");
-    os_signpost_event_emit(log, spid, "called");
+    // printf("str: %s\n", str);
+    // os_signpost_event_emit(log, spid, "%{public}s", str);
+    os_signpost_event_emit(log, spid, "Event", "%s", str);
+    // os_signpost_event_emit(log, spid, "stuff");
 }
 
 

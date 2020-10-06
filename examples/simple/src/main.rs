@@ -2,6 +2,8 @@ extern crate oslog;
 use oslog::{os_signpost_event_emit, OSLog, OSSignpostID};
 
 use std::ffi::{CString, CStr};
+
+
 fn main() {
     let log = OSLog::new("com.ngrid.app", "PointsOfInterest");
     let spid = OSSignpostID::new(&log);

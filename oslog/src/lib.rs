@@ -9,7 +9,7 @@
 extern crate log;
 extern crate oslog_sys;
 
-use log::{Level, Log, Metadata, Record, SetLoggerError};
+//use log::{Level, Log, Metadata, Record, SetLoggerError};
 
 use oslog_sys::_os_log_fault;
 // use oslog_sys::{
