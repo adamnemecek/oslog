@@ -118,7 +118,7 @@ impl OSPoiLog {
     }
 
     #[inline]
-    pub fn spid(&self) -> OSSignpostID {
+    pub fn new_spid(&self) -> OSSignpostID {
         OSSignpostID::new(&self.log)
     }
 

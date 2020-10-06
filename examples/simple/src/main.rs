@@ -18,7 +18,7 @@ fn main1() {
 
 fn main2() {
     let log = OSPoiLog::new("com.ngrid.app");
-    let spid = log.spid();
+    let spid = log.new_spid();
     let cstr = CString::new("poilog").unwrap();
     log.start(spid, &cstr);
     log.end(spid, &cstr);
