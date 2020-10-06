@@ -73,6 +73,7 @@ impl OSLog {
 //     }
 // }
 
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct OSSignpostID {
     inner: oslog_sys::os_signpost_id_t,
 }
@@ -103,6 +104,17 @@ pub fn os_signpost_interval_begin(log: &OSLog, spid: OSSignpostID, msg: &CStr) {
 pub fn os_signpost_interval_end(log: &OSLog, spid: OSSignpostID, msg: &CStr) {
     unsafe {
         oslog_sys::oslog_sys_signpost_interval_end(log.inner, spid.inner, msg.as_ptr());
+    }
+}
+
+pub struct OSPoiLog {
+    log: OSLog,
+}
+
+impl OSPoiLog {
+    pub fn new() -> Self {
+        let log = OSLog::new("com.ngrid.app", POINTS_OF_INTEREST);
+        Self { log }
     }
 }
 

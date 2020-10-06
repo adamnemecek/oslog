@@ -1,4 +1,7 @@
-use oslog::{os_signpost_event_emit, OSLog, OSSignpostID};
+use oslog::{
+    os_signpost_event_emit, os_signpost_interval_begin, os_signpost_interval_end, OSLog,
+    OSSignpostID,
+};
 
 use std::ffi::CString;
 
@@ -8,5 +11,7 @@ fn main() {
 
     println!("hello worl");
     let s = CString::new("czx").unwrap();
-    os_signpost_event_emit(&log, spid, &s);
+    // os_signpost_event_emit(&log, spid, &s);
+    os_signpost_interval_begin(&log, spid, &s);
+    os_signpost_interval_end(&log, spid, &s);
 }
