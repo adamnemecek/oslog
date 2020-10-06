@@ -116,6 +116,22 @@ impl OSPoiLog {
         let log = OSLog::new("com.ngrid.app", POINTS_OF_INTEREST);
         Self { log }
     }
+
+    pub fn spid(&self) -> OSSignpostID {
+        OSSignpostID::new(&self.log)
+    }
+
+    pub fn emit(&self, spid: OSSignpostID, msg: &CStr) {
+        os_signpost_event_emit(&self.log, spid, msg)
+    }
+
+    pub fn start(&self, spid: OSSignpostID, msg: &CStr) {
+        os_signpost_interval_begin(&self.log, spid, msg)
+    }
+
+    pub fn end(&self, spid: OSSignpostID, msg: &CStr) {
+        os_signpost_interval_end(&self.log, spid, msg)
+    }
 }
 
 fn test() {
