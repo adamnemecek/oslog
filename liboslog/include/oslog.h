@@ -1,11 +1,3 @@
-//
-//  oslog.h
-//  liboslog
-//
-//  Created by Søren Mortensen on 29/07/2018.
-//  Copyright © 2018 Søren Mortensen. All rights reserved.
-//
-
 #pragma once
 
 #include <os/log.h>

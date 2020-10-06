@@ -1,11 +1,3 @@
-#
-#  Makefile
-#  liboslog
-#
-#  Created by Søren Mortensen on 29/07/2018.
-#  Copyright © 2018 Søren Mortensen. All rights reserved.
-#
-
 CC=clang
 CFLAGS=-I$(INC_DIR)
 

@@ -1,14 +1,3 @@
-//
-//  lib.rs
-//  oslog
-//
-//  Created by Søren Mortensen on 29/07/2018.
-//  Copyright © 2018 Søren Mortensen. All rights reserved.
-//
-
-extern crate log;
-extern crate oslog_sys;
-
 //use log::{Level, Log, Metadata, Record, SetLoggerError};
 
 // use oslog_sys::_os_log_fault;
@@ -20,7 +9,7 @@ use oslog_sys::{
     os_log_type_t_OS_LOG_TYPE_ERROR, os_log_type_t_OS_LOG_TYPE_FAULT,
     os_log_type_t_OS_LOG_TYPE_INFO,
 };
-use std::ffi::{CString, CStr};
+use std::ffi::{CStr, CString};
 
 // struct OsLog {
 //     level: Level,
@@ -76,7 +65,6 @@ impl OSLog {
         Self { inner }
     }
 }
-
 
 // impl std::fmt::Debug for OSLog {
 //     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
